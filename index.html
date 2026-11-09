@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MarineOptix</title>
+<meta name="description" content="MarineOptix integrates LLMs, AI and AI agents into specialised professional tasks, such as preparing and conducting interviews.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: single column on chart-paper, one wide hero, a product plate, three capability rows, contact strip. */
+:root {
+  --bg: #eef2f5;
+  --surface: #ffffff;
+  --fg: #0e2236;
+  --muted: #4d6276;
+  --line: #c9d5df;
+  --accent: #d9420b;
+  --accent-ink: #ffffff;
+  --grid: rgba(14, 34, 54, 0.06);
+  --f-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --f-body: "Instrument Sans", "Segoe UI", system-ui, sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0b1b2b; --surface: #112740; --fg: #e8eff5; --muted: #9bb0c3;
+    --line: #25405c; --accent: #ff6a35; --accent-ink: #0b1b2b; --grid: rgba(232, 239, 245, 0.05);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0b1b2b; --surface: #112740; --fg: #e8eff5; --muted: #9bb0c3;
+  --line: #25405c; --accent: #ff6a35; --accent-ink: #0b1b2b; --grid: rgba(232, 239, 245, 0.05);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background-color: var(--bg);
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 48px 48px;
+  color: var(--fg);
+  font-family: var(--f-body);
+  font-size: 17px;
+  line-height: 1.6;
+  padding-block: 0;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.wrap { max-width: 1040px; margin: 0 auto; }
+
+/* header */
+header { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 24px; }
+.brand { font-family: var(--f-display); font-weight: 700; font-size: 1.25rem; letter-spacing: -0.01em; text-decoration: none; }
+.brand span { color: var(--accent); }
+.lang { display: flex; border: 1px solid var(--line); border-radius: 4px; overflow: hidden; background: var(--surface); }
+.lang button {
+  font-family: var(--f-mono); font-size: 0.78rem; letter-spacing: 0.08em; padding: 6px 12px;
+  background: transparent; color: var(--muted); border: 0; cursor: pointer;
+}
+.lang button[aria-pressed="true"] { background: var(--fg); color: var(--bg); }
+
+/* hero */
+.hero { padding-block: 56px 72px; }
+.eyebrow { font-family: var(--f-mono); font-size: 0.8rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin: 0 0 20px; }
+h1 {
+  font-family: var(--f-display); font-weight: 700; font-size: clamp(2.2rem, 6.4vw, 4.4rem);
+  line-height: 1.04; letter-spacing: -0.025em; margin: 0 0 28px; max-width: 16ch; text-wrap: balance;
+}
+h1 em { font-style: normal; color: var(--accent); }
+.lead { font-size: 1.2rem; max-width: 56ch; color: var(--muted); margin: 0 0 36px; }
+.lead strong { color: var(--fg); font-weight: 600; }
+.cta { display: flex; flex-wrap: wrap; gap: 12px; }
+.btn {
+  display: inline-block; font-weight: 600; text-decoration: none; padding: 13px 22px; border-radius: 4px;
+  border: 1px solid var(--fg);
+}
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.btn.ghost { background: transparent; }
+.btn:hover { transform: translateY(-1px); }
+@media (prefers-reduced-motion: no-preference) { .btn { transition: transform .15s ease; } }
+
+/* sections */
+section { padding-block: 40px; border-top: 1px solid var(--line); }
+.sec-label { font-family: var(--f-mono); font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin: 0 0 24px; }
+h2 { font-family: var(--f-display); font-weight: 700; font-size: clamp(1.5rem, 3.6vw, 2.2rem); line-height: 1.15; letter-spacing: -0.015em; margin: 0 0 16px; text-wrap: balance; }
+
+/* what we do */
+.rows { display: grid; gap: 0; }
+.row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 16px 40px; padding-block: 22px; border-top: 1px solid var(--line); }
+.row:first-child { border-top: 0; padding-top: 0; }
+.row h3 { font-family: var(--f-display); font-size: 1.2rem; margin: 0; line-height: 1.25; }
+.row p { margin: 0; color: var(--muted); max-width: 60ch; }
+@media (max-width: 640px) { .row { grid-template-columns: minmax(0, 1fr); gap: 6px; } }
+
+/* product plate */
+.plate {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 6px;
+  padding: clamp(22px, 4vw, 40px); display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 32px;
+}
+.plate h3 { font-family: var(--f-display); font-size: 1.9rem; margin: 0 0 4px; letter-spacing: -0.015em; }
+.tag { font-family: var(--f-mono); font-size: 0.78rem; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin: 0 0 12px; }
+.plate p { margin: 0 0 20px; color: var(--muted); }
+.facts { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; align-content: start; font-size: 0.95rem; }
+.facts li { padding-block: 11px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; gap: 16px; }
+.facts li:first-child { border-top: 0; padding-top: 0; }
+.facts span:first-child { color: var(--muted); }
+.facts span:last-child { text-align: right; font-weight: 500; }
+@media (max-width: 720px) { .plate { grid-template-columns: minmax(0, 1fr); } }
+
+/* contact */
+.contacts { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+.contact { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 20px 22px; min-width: 0; }
+.contact .k { font-family: var(--f-mono); font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin: 0 0 6px; }
+.contact .v { font-family: var(--f-display); font-size: 1.25rem; font-weight: 500; margin: 0 0 12px; overflow-wrap: anywhere; user-select: all; }
+.contact .acts { display: flex; gap: 14px; flex-wrap: wrap; font-size: 0.92rem; }
+.contact .acts a, .contact .acts button {
+  color: var(--fg); background: none; border: 0; padding: 0; font: inherit; cursor: pointer;
+  text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--accent);
+}
+
+footer { padding-block: 32px 48px; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; color: var(--muted); font-size: 0.9rem; }
+footer .mono { font-family: var(--f-mono); font-size: 0.8rem; letter-spacing: 0.04em; }
+
+[data-lang-hidden] { display: none; }
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="brand" href="#top">Marine<span>Optix</span></a>
+    <div class="lang" role="group" aria-label="Language">
+      <button type="button" id="btn-en" aria-pressed="true">EN</button>
+      <button type="button" id="btn-ru" aria-pressed="false">RU</button>
+    </div>
+  </header>
+
+  <main id="top">
+    <div class="hero">
+      <p class="eyebrow" data-en="LLM · AI · AI agents" data-ru="LLM · ИИ · ИИ-агенты">LLM · AI · AI agents</p>
+      <h1 data-en="We put AI agents to work on <em>specialised</em> tasks." data-ru="Мы подключаем ИИ-агентов к <em>узкоспециализированным</em> задачам.">We put AI agents to work on <em>specialised</em> tasks.</h1>
+      <p class="lead" data-en="MarineOptix integrates large language models, AI and AI agents into the solution of practical problems. One example is <strong>preparing and conducting interviews in narrow professional sectors</strong>, where generic tools do not know what a good answer sounds like." data-ru="MarineOptix встраивает большие языковые модели, ИИ и ИИ-агентов в решение практических задач. Один из примеров: <strong>подготовка и проведение собеседований в узких профессиональных сферах</strong>, где универсальные инструменты не знают, как звучит хороший ответ.">MarineOptix integrates large language models, AI and AI agents into the solution of practical problems. One example is <strong>preparing and conducting interviews in narrow professional sectors</strong>, where generic tools do not know what a good answer sounds like.</p>
+      <div class="cta">
+        <a class="btn primary" href="https://passmuster.net" target="_blank" rel="noopener" data-en="Try PassMuster" data-ru="Открыть PassMuster">Try PassMuster</a>
+        <a class="btn ghost" href="#contact" data-en="Get in touch" data-ru="Связаться">Get in touch</a>
+      </div>
+    </div>
+
+    <section id="product">
+      <p class="sec-label" data-en="Product" data-ru="Продукт">Product</p>
+      <div class="plate">
+        <div>
+          <p class="tag" data-en="Live" data-ru="Работает">Live</p>
+          <h3>PassMuster</h3>
+          <p data-en="A rehearsal for crew interviews at sea. The AI interviewer asks questions for your rank and vessel type, follows up when an answer is thin, and scores each answer against criteria written and approved by serving engineers. Engine ranks are open now." data-ru="Репетиция интервью для работы в судовом экипаже. ИИ-интервьюер задаёт вопросы под вашу должность и тип судна, уточняет, если ответ слабый, и оценивает каждый ответ по критериям, которые написали и проверили действующие инженеры. Машинные должности доступны сейчас.">A rehearsal for crew interviews at sea. The AI interviewer asks questions for your rank and vessel type, follows up when an answer is thin, and scores each answer against criteria written and approved by serving engineers. Engine ranks are open now.</p>
+          <a class="btn primary" href="https://passmuster.net" target="_blank" rel="noopener">passmuster.net</a>
+        </div>
+        <ul class="facts">
+          <li><span data-en="Sector" data-ru="Сфера">Sector</span><span data-en="Shipping, engine ranks" data-ru="Судоходство, машинная команда">Shipping, engine ranks</span></li>
+          <li><span data-en="Format" data-ru="Формат">Format</span><span data-en="~10 questions, voice or text" data-ru="~10 вопросов, голос или текст">~10 questions, voice or text</span></li>
+          <li><span data-en="Scoring" data-ru="Оценка">Scoring</span><span data-en="Expert-approved criteria" data-ru="Критерии от экспертов">Expert-approved criteria</span></li>
+          <li><span data-en="Language" data-ru="Язык">Language</span><span data-en="English" data-ru="Английский">English</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="what">
+      <p class="sec-label" data-en="What we do" data-ru="Чем занимаемся">What we do</p>
+      <div class="rows">
+        <div class="row">
+          <h3 data-en="LLMs inside real workflows" data-ru="LLM внутри рабочих процессов">LLMs inside real workflows</h3>
+          <p data-en="We build the model into a task people already have to do, with the right data, rules and checks around it, so it produces something usable and not a generic answer." data-ru="Мы встраиваем модель в задачу, которую людям уже приходится решать: с нужными данными, правилами и проверками вокруг неё, чтобы на выходе был полезный результат, а не общий ответ.">We build the model into a task people already have to do, with the right data, rules and checks around it, so it produces something usable and not a generic answer.</p>
+        </div>
+        <div class="row">
+          <h3 data-en="AI agents that run a process" data-ru="ИИ-агенты, ведущие процесс">AI agents that run a process</h3>
+          <p data-en="An agent does more than reply. It plans the next step, asks a follow-up, keeps track of what was said and produces a result at the end." data-ru="Агент не просто отвечает. Он планирует следующий шаг, задаёт уточняющие вопросы, помнит, что было сказано, и выдаёт результат в конце.">An agent does more than reply. It plans the next step, asks a follow-up, keeps track of what was said and produces a result at the end.</p>
+        </div>
+        <div class="row">
+          <h3 data-en="Interviews in narrow sectors" data-ru="Собеседования в узких сферах">Interviews in narrow sectors</h3>
+          <p data-en="We prepare candidates for interviews and run them, in fields with their own vocabulary, regulations and unwritten expectations. The questions come from practitioners, and answers are judged against what experts in that field say." data-ru="Мы готовим кандидатов к собеседованиям и проводим их в областях со своей лексикой, регламентами и неписаными ожиданиями. Вопросы берутся у практиков, а ответы оцениваются по тому, что говорят эксперты этой области.">We prepare candidates for interviews and run them, in fields with their own vocabulary, regulations and unwritten expectations. The questions come from practitioners, and answers are judged against what experts in that field say.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <p class="sec-label" data-en="Contact" data-ru="Контакты">Contact</p>
+      <h2 data-en="Have a specialised task in mind?" data-ru="Есть узкая задача?">Have a specialised task in mind?</h2>
+      <p style="color: var(--muted); max-width: 56ch; margin: 0 0 24px;" data-en="Write to us about interview preparation for your sector, or any process you think an AI agent could handle." data-ru="Напишите нам о подготовке к собеседованиям в вашей сфере или о любом процессе, который, по вашему мнению, может вести ИИ-агент.">Write to us about interview preparation for your sector, or any process you think an AI agent could handle.</p>
+      <div class="contacts">
+        <div class="contact">
+          <p class="k">Telegram</p>
+          <p class="v">@by4koff</p>
+          <div class="acts">
+            <a href="https://t.me/by4koff" target="_blank" rel="noopener" data-en="Open chat" data-ru="Открыть чат">Open chat</a>
+            <button type="button" data-copy="@by4koff" data-en="Copy" data-ru="Копировать">Copy</button>
+          </div>
+        </div>
+        <div class="contact">
+          <p class="k">Email</p>
+          <p class="v">2468by4koff@gmail.com</p>
+          <div class="acts">
+            <a href="mailto:2468by4koff@gmail.com" data-en="Write email" data-ru="Написать письмо">Write email</a>
+            <button type="button" data-copy="2468by4koff@gmail.com" data-en="Copy" data-ru="Копировать">Copy</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span>© <span id="yr">2026</span> MarineOptix</span>
+    <span class="mono"><a href="https://passmuster.net" target="_blank" rel="noopener">passmuster.net</a></span>
+  </footer>
+</div>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var els = document.querySelectorAll("[data-en]");
+  var btnEn = document.getElementById("btn-en");
+  var btnRu = document.getElementById("btn-ru");
+
+  function setLang(l) {
+    for (var i = 0; i < els.length; i++) {
+      var v = els[i].getAttribute("data-" + l);
+      if (v !== null) els[i].innerHTML = v;
+    }
+    root.setAttribute("lang", l);
+    btnEn.setAttribute("aria-pressed", String(l === "en"));
+    btnRu.setAttribute("aria-pressed", String(l === "ru"));
+    try { localStorage.setItem("mo-lang", l); } catch (e) {}
+  }
+  btnEn.addEventListener("click", function () { setLang("en"); });
+  btnRu.addEventListener("click", function () { setLang("ru"); });
+
+  var start = "en";
+  try { start = localStorage.getItem("mo-lang") || ((navigator.language || "").toLowerCase().indexOf("ru") === 0 ? "ru" : "en"); } catch (e) {}
+  setLang(start === "ru" ? "ru" : "en");
+
+  document.getElementById("yr").textContent = new Date().getFullYear();
+
+  document.querySelectorAll("[data-copy]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var text = b.getAttribute("data-copy");
+      var orig = b.innerHTML;
+      var done = function () {
+        b.textContent = root.lang === "ru" ? "Скопировано" : "Copied";
+        setTimeout(function () { b.innerHTML = orig; }, 1400);
+      };
+      try { navigator.clipboard.writeText(text).then(done, function () {}); } catch (e) {}
+    });
+  });
+})();
+</script>
+</body>
+</html>
